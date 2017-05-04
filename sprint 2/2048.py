@@ -5,10 +5,10 @@ import time
 browser = webdriver.Firefox()
 browser.get('https://gabrielecirulli.github.io/2048/')
 
-htmlElem = browser.find_element_by_tag_name('html')
-time.sleep(3)
+htmlElem = browser.find_element_by_tag_name('html') # 'selects' the whole page to make sure the keys get sent to the game interface
+time.sleep(3) # waits for the page to load
 
-while True:
+while True: # plays the game indefinetively
     htmlElem.send_keys(Keys.RIGHT)
     htmlElem.send_keys(Keys.DOWN)
     htmlElem.send_keys(Keys.LEFT)
