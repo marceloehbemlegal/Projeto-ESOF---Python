@@ -1,3 +1,7 @@
+#! python3
+# 2048.py - Plays the 2048 game by itself
+
+
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import time
