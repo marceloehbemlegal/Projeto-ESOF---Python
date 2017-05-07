@@ -1,3 +1,7 @@
+#!python3
+# PDFParanoia.py - Encrypts or decrypts all PDF files found inside directory tree.
+
+
 import os
 import PyPDF2
 
@@ -6,7 +10,7 @@ def encrypt(password):
     for foldername, subfolders, filenames in os.walk('.'):
         pdfFiles = []
         for filename in filenames:
-            if filename.endswith('.pdf'):
+            if filename.endswith('.pdf'): # puts all pdf file names in current folder into pdfFiles list
                 pdfFiles.append(filename)
         for pdfFile in pdfFiles:
             print('Encrypting %s...' % pdfFile)
@@ -22,15 +26,16 @@ def encrypt(password):
             pdfWriter = PyPDF2.PdfFileWriter()
             for pageNum in range(pdfReader.numPages):
                 pdfWriter.addPage(pdfReader.getPage(pageNum))
+                
             pdfOutputFile = open(pdfFile[:-4]+'_encrypted.pdf', 'wb')
-            pdfWriter.encrypt(password)
+            pdfWriter.encrypt(password) # encrypts file and saves it with the '_encrypted.pdf' suffix
             pdfWriter.write(pdfOutputFile)
             pdfOutputFile.close()
             pdfFileRead.close()
 
             pdfFileRead = open(pdfFile[:-4]+'_encrypted.pdf', 'rb')
             pdfReader = PyPDF2.PdfFileReader(pdfFileRead)
-            if pdfReader.decrypt(password):
+            if pdfReader.decrypt(password): # tests if encryption went as planned
                 print('File encrypted with success.')
                 os.remove(pdfFile)
             else:
@@ -54,7 +59,7 @@ def decrypt(password):
                 pdfFileRead.close()
                 continue
 
-            if not pdfReader.decrypt(password):
+            if not pdfReader.decrypt(password): # tests password
                 print('Failed to decrypt file.')
                 continue
 
@@ -63,7 +68,7 @@ def decrypt(password):
                 pdfWriter.addPage(pdfReader.getPage(pageNum))
 
             pdfFileWrite = open(pdfFile[:-4]+'_decrypted.pdf', 'wb')
-            pdfWriter.write(pdfFileWrite)
+            pdfWriter.write(pdfFileWrite) # writes new decrypted file with the suffix
             pdfFileWrite.close()
             pdfFileRead.close()
             os.remove(pdfFile)
