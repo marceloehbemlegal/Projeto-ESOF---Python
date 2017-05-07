@@ -1,22 +1,21 @@
+#! python3
+# PasswordBreaker.py - Tests password for PDF file against provided dictionary of english words.
+
 import time
 import PyPDF2
 
 dictionaryFile = open('dictionary.txt', 'r')
-dictionaryList = dictionaryFile.readlines()
+dictionaryList = dictionaryFile.readlines() # creates list with all the words
 dictionaryFile.close()
 
 pdfFileRead = open('encrypted.pdf', 'rb')
 pdfReader = PyPDF2.PdfFileReader(pdfFileRead)
 
-startTime = time.time()
 for word in dictionaryList:
-    print('Testing "%s"...' % word.rstrip().lower())
-    if pdfReader.decrypt(word.rstrip().lower()):
-        print('Password is %s' % word.rstrip().lower())
+    print('Testing "%s"...' % word.rstrip().lower()) # tests password for each word on the dictionary (lower case)
+    if pdfReader.decrypt(word.rstrip().lower()): # .decrypt() method returns 1 when successful
+        print('Password is %s' % word.rstrip().lower()) # when password found, prints it
         break
-endTime = time.time()
-
-print('%d seconds elapsed.' % round(endTime - startTime))
 
 pdfFileRead.close()
 
