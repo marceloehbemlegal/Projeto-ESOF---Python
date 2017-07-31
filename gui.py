@@ -298,20 +298,21 @@ class Profile(tk.Frame):
         f3 = 0
 
         for i in range(1, 6):
-            if bat_num in baterias_ref[i]:
+            if bat_num in baterias_ref[i] and not f1:
                 self.baterias_text.set("Baterias #%d" % i)
                 txt = str(bat_num) + '/' + str(max(baterias_ref[i]))
                 self.baterias_num_text.set(txt)
                 bat_num = round(float(bat_num) / max(baterias_ref[i])*100)
                 f1 = 1
-            if pap_num in papel_ref[i]:
+            if pap_num in papel_ref[i] and not f2:
                 self.papel_text.set("Papel #%d" % i)
                 txt = str(pap_num) + '/' + str(max(papel_ref[i])) + ' gramas'
                 self.papel_num_text.set(txt)
                 pap_num = round(float(pap_num) / max(papel_ref[i]) * 100)
                 f2 = 1
-            if lat_num in latinhas_ref[i]:
+            if lat_num in latinhas_ref[i] and not f3:
                 self.latinhas_text.set("Latinhas #%d" % i)
+                print(lat_num)
                 txt = str(lat_num) + '/' + str(max(latinhas_ref[i]))
                 self.latinhas_num_text.set(txt)
                 lat_num = round(float(lat_num) / max(latinhas_ref[i]) * 100)
